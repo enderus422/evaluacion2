@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { CrudAPIService } from 'src/app/servicios/crud-api.service';
-import { Alumno } from 'src/app/model/alumno';
-import { ClaseService } from 'src/app/servicios/clase.service';
+import { MateriaCurso } from 'src/app/model/materias'; 
+import { ApiMateriasService } from 'src/app/servicios/api-materias.service';
 
 @Component({
   selector: 'app-por-asistencia-curso',
@@ -9,25 +8,31 @@ import { ClaseService } from 'src/app/servicios/clase.service';
   styleUrls: ['./por-asistencia-curso.page.scss'],
 })
 export class PorAsistenciaCursoPage implements OnInit {
-  students: Alumno[] = [];
-  totalClases: number = 0;
+  materia: MateriaCurso[] = [];
+  alumnosPorMateria: any[] = [];
+  materiasDelProfesor: MateriaCurso[] = [];
+  correoProfesor: string | null = '';
 
   constructor(
-    private crudAPIService: CrudAPIService,
-    private claseService: ClaseService
+    private apiMateriasService: ApiMateriasService,
   ) {}
 
-  ngOnInit() {
-    this.loadAlumnos();
-    this.claseService.totalClases$.subscribe((total) => {
-      this.totalClases = total;
-    });
-  }
+  ngOnInit() { 
+    this.correoProfesor = localStorage.getItem('usuario');
 
-  loadAlumnos() {
-    this.crudAPIService.getAlumno().subscribe(
+    this.apiMateriasService.getMaterias().subscribe(
       (data) => {
-        this.students = data;
+        console.log('Datos recibidos:', data);
+        this.materia = data;
+
+        
+        this.materiasDelProfesor = this.materia.filter(
+          (m) => m.correo_profe === this.correoProfesor
+        );
+
+        localStorage.setItem('materiasDelProfesor', JSON.stringify(this.materiasDelProfesor));
+
+        console.log('Materias del profesor:', this.materiasDelProfesor);
       },
       (error) => {
         console.error('Error al obtener los datos:', error);
@@ -35,9 +40,5 @@ export class PorAsistenciaCursoPage implements OnInit {
     );
   }
 
-  getAttendancePercentage(asistencia: number): string {
-    if (this.totalClases === 0) return '0%';
-    const percentage = (asistencia / this.totalClases) * 100;
-    return percentage.toFixed(2) + '%';
-  }
+
 }

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CrudAPIService } from 'src/app/servicios/crud-api.service';
 import { AuthService } from 'src/app/servicios/auth.service';
-import { Materias } from 'src/app/model/materias'; 
-import { Asistencia } from 'src/app/model/materias';
+import { MateriaCurso } from 'src/app/model/materias'; 
+import { AsistenciaCurso } from 'src/app/model/materias';
 
 @Component({
   selector: 'app-materia-alumn',
@@ -26,7 +26,7 @@ export class MateriaAlumnPage implements OnInit {
 
   loadMateriasConAsistencias() {
     this.crudAPIService.getMateriasConAsistencias().subscribe(
-      (data: Materias[]) => {
+      (data: MateriaCurso[]) => {
         console.log('Materias cargadas:', data);
         this.materias = data.map(materia => {
           // Filtra las asistencias por el alumnoId
@@ -42,11 +42,11 @@ export class MateriaAlumnPage implements OnInit {
     );
   }
 
-  getAttendanceCount(asistencias: Asistencia[]): number {
+  getAttendanceCount(asistencias: AsistenciaCurso[]): number {
     return asistencias.filter(asistencia => asistencia.asistencia).length;
   }
 
-  getAttendancePercentage(asistencias: Asistencia[]): number {
+  getAttendancePercentage(asistencias: AsistenciaCurso[]): number {
     const diasPresentes = this.getAttendanceCount(asistencias);
     return this.totalClases > 0 ? (diasPresentes / this.totalClases) * 100 : 0;
   }

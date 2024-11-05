@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiMateriasService } from 'src/app/servicios/api-materias.service';
-import { Materias } from 'src/app/model/materias';
+import { MateriaCurso } from 'src/app/model/materias';
 
 @Component({
   selector: 'app-cursos-informe',
@@ -9,9 +9,9 @@ import { Materias } from 'src/app/model/materias';
 })
 export class CursosInformePage implements OnInit {
 
-  materia: Materias[] = []; // Lista de materias obtenidas del API
+  materia: MateriaCurso[] = []; // Lista de materias obtenidas del API
   correoProfesor: string | null = ''; // Correo del profesor logueado
-  materiasDelProfesor: Materias[] = []; // Materias filtradas según el profesor
+  materiasDelProfesor: MateriaCurso[] = []; // Materias filtradas según el profesor
 
   constructor(private apiMateriasService: ApiMateriasService) {}
 

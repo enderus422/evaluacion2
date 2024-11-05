@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiMateriasService } from 'src/app/servicios/api-materias.service'; // Importa el servicio
-import { Materias } from 'src/app/model/materias'; // Importa la interfaz Materias
+import { MateriaCurso } from 'src/app/model/materias'; // Importa la interfaz Materias
 import { Router } from '@angular/router'; 
 
 @Component({
@@ -10,9 +10,9 @@ import { Router } from '@angular/router';
 })
 export class CursosQRPage implements OnInit {
 
-  materia: Materias[] = []; // Almacena todas las materias
+  materia: MateriaCurso[] = []; // Almacena todas las materias
   correoProfesor: string | null = ''; // Correo del profesor logueado
-  materiasDelProfesor: Materias[] = []; // Materias filtradas del profesor
+  materiasDelProfesor: MateriaCurso[] = []; // Materias filtradas del profesor
 
   constructor(private apiMateriasService: ApiMateriasService,
               private router: Router

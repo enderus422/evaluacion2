@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiMateriasService } from 'src/app/servicios/api-materias.service';
-import { Materias } from 'src/app/model/materias';
+import { MateriaCurso } from 'src/app/model/materias';
 
 @Component({
   selector: 'app-cursos-lista',
@@ -9,9 +9,9 @@ import { Materias } from 'src/app/model/materias';
 })
 export class CursosListaPage implements OnInit {
 
-  materia: Materias[] = []; // Lista de todas las materias obtenidas del API
+  materia: MateriaCurso[] = []; // Lista de todas las materias obtenidas del API
   correoProfesor: string | null = ''; // Correo del profesor logueado
-  materiasDelProfesor: Materias[] = []; // Materias asociadas al profesor
+  materiasDelProfesor: MateriaCurso[] = []; // Materias asociadas al profesor
 
   constructor(private apiMateriasService: ApiMateriasService) {}
 
@@ -29,6 +29,9 @@ export class CursosListaPage implements OnInit {
         this.materiasDelProfesor = this.materia.filter(
           (m) => m.correo_profe === this.correoProfesor
         );
+
+        // Guardar las materias del profesor en localStorage
+        localStorage.setItem('materiasDelProfesor', JSON.stringify(this.materiasDelProfesor));
 
         console.log('Materias del profesor:', this.materiasDelProfesor);
       },

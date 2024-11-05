@@ -91,6 +91,7 @@ def asistencias_por_materia(request):
     for materia in materias_list:
         asistencias = Asistencia.objects.filter(nombre=materia)
         asistencia_info = {
+            "id":materia.id,
             "nombre": materia.nombre,
             "asistencias": []
         }

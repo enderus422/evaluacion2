@@ -1,18 +1,20 @@
 // Interfaces
-export interface Materias {
+export interface MateriaCurso {
     id: number;
     nombre: string;
-    duracion: string;         // Duración de la materia o curso
-    correo_profe: string;     // Correo del profesor encargado de la materia
-    totalClases: number;      // Cantidad total de clases programadas para la materia
-    asistencias: Asistencia[]; // Agregar esta línea
+    duracion: string;         
+    correo_profe: string;     
+    totalClases: number;      
+    asistencias: AsistenciaCurso[]; // Cambiamos el nombre aquí
 }
-export interface Asistencia {
+
+export interface AsistenciaCurso {
     alumno_id: number;
-    materia: Materias;
+    materia: MateriaCurso; // Cambiamos el nombre aquí
     asistencia: boolean;
-    fecha: string; // Asegúrate de que esta propiedad esté presente
+    fecha: string; 
 }
+
 // Funciones
 
 /**
@@ -22,9 +24,9 @@ export interface Asistencia {
  * @returns Un objeto Materias actualizado con el profesor asignado
  */
 export function asignarProfesorAMateria(
-    materia: Materias,
+    materia: MateriaCurso,
     correoProfe: string
-): Materias {
+): MateriaCurso {
     materia.correo_profe = correoProfe;
     return materia;
 }
@@ -36,9 +38,9 @@ export function asignarProfesorAMateria(
  * @returns Un objeto Materias actualizado con el total de clases modificado
  */
 export function actualizarTotalClases(
-    materia: Materias,
+    materia: MateriaCurso,
     cantidad: number
-): Materias {
+): MateriaCurso {
     materia.totalClases += cantidad;
     return materia;
 }
@@ -50,7 +52,7 @@ export function actualizarTotalClases(
  * @returns `true` si el profesor está asignado a la materia, de lo contrario `false`
  */
 export function verificarProfesorAsignado(
-    materia: Materias,
+    materia: MateriaCurso,
     correoProfe: string
 ): boolean {
     return materia.correo_profe === correoProfe;

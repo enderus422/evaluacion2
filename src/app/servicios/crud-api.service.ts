@@ -1,4 +1,4 @@
-import { Materias } from 'src/app/model/materias';
+import { MateriaCurso } from 'src/app/model/materias';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -29,8 +29,8 @@ export class CrudAPIService {
     return this.http.get(`${this.rutaApiAlumno}pdf/`, { responseType: 'blob' });
   }
 
-  getMateriasConAsistencias(): Observable<Materias[]> {
-    return this.http.get<Materias[]>(`${this.apiUrl}/asistencias_por_materia`);
+  getMateriasConAsistencias(): Observable<MateriaCurso[]> {
+    return this.http.get<MateriaCurso[]>(`${this.apiUrl}/asistencias_por_materia`);
   }
 
 
@@ -74,16 +74,16 @@ export class CrudAPIService {
   }
 
   // CRUD para Materias en Firestore
-  agregarMateriaFirestore(materia: Materias): Promise<void> {
+  agregarMateriaFirestore(materia: MateriaCurso): Promise<void> {
     const id = this.firestore.createId();
     return this.firestore.collection('materias').doc(id).set(materia);
   }
 
-  obtenerMateriaFirestore(id: string): Observable<Materias | undefined> {
-    return this.firestore.collection('materias').doc<Materias>(id).valueChanges();
+  obtenerMateriaFirestore(id: string): Observable<MateriaCurso | undefined> {
+    return this.firestore.collection('materias').doc<MateriaCurso>(id).valueChanges();
   }
 
-  actualizarMateriaFirestore(id: string, materia: Materias): Promise<void> {
+  actualizarMateriaFirestore(id: string, materia: MateriaCurso): Promise<void> {
     return this.firestore.collection('materias').doc(id).update(materia);
   }
 

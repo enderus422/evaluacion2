@@ -6,14 +6,14 @@
 </ion-header>
 
 <ion-content>
-  <ion-list>
-    <ion-item *ngFor="let student of students">
-      <ion-label>
-        <h2>{{ student.nombre }} {{ student.apellido }}</h2>
-        <p>Correo: {{ student.correo }}</p>
-        <p>Edad: {{ student.edad }}</p>
-        <p>Asistencia: {{ student.asistencia }} de {{ totalClases }} ({{ getAttendancePercentage(student.asistencia) }})</p>
-      </ion-label>
-    </ion-item>
-  </ion-list>
+  <div *ngFor="let materia of materiasDelProfesor">
+    <ion-list>
+      <ion-item>{{ materia.nombre }}</ion-item>
+      <div *ngFor="let asistencia of materia.asistencias"> <!-- Change here -->
+        <ion-list>
+          <ion-item>{{ asistencia.fecha }}</ion-item> <!-- Change here -->
+        </ion-list>
+      </div>
+    </ion-list>
+  </div>
 </ion-content>
